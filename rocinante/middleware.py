@@ -11,7 +11,7 @@ class Middleware(object):
         @wraps(func)
         def wrapper(endpoint, request: Request, **params) -> Optional[Response]:
             before_request_response = self.before_request(request, **params)
-            if before_request_response is not None:
+            if before_request_response is not None and isinstance(before_request_response, Response):
                 return before_request_response
 
             response = func(endpoint, request, **params)
